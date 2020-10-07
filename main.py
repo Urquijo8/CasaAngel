@@ -45,6 +45,12 @@ if __name__ == "__main__":
                         mycursor.execute("SELECT * FROM CasaAngel.ReferenciaFamiliar WHERE (`idasilado` = '"+str(idp)+"');")
                         referencia=mycursor.fetchall()
                         print(referencia[0])
+                    Estudio=input("Desea consultar estudio socio-economico?[S/N]").upper()
+                    if Estudio=="S":
+                        edp=int(input("Ingrese ID de consulta: "))
+                        mycursor.execute("SELECT * FROM CasaAngel.estudioSocio WHERE (`idasilado` = '"+str(edp)+"');")
+                        estudios=mycursor.fetchall()
+                        print(estudios[0])
 
                 if opc==2:
                     mycursor.execute("SELECT * FROM CasaAngel.asilado;")
