@@ -84,6 +84,9 @@ if __name__ == "__main__":
                     sqlstr=("INSERT INTO `CasaAngel`.`asilado` (`idasilado`, `Fecha`, `Expediente`, `Huellas`, `Nombre`, `Edad`, `Sexo`, `EstadoCivil`, `Estudios`, `CURP`, `SeguroSocial`, `INE`, `CalleNumero`, `Colonia`, `Ciudad`, `Estado`) VALUES ('"+idasilado+"', '"+fecha+"', '"+expediente+"', '"+huellas+"', '"+nombre+"', '"+edad+"', '"+sexo+"', '"+estadocivil+"', '"+estudios+"', '"+curp+"', '"+nss+"', '"+ine+"', '"+calle+"', '"+colonia+"', '"+ciudad+"', '"+estado+"');")
                     mycursor.execute(sqlstr)
                     mydb.commit()
+                    sqlstr("INSERT INTO `CasaAngel`.`HistorialClinico` (`idHistorialClinico`, `idasilado`) VALUES ('"+idasilado+"', '"+idasilado+"');")   
+                    mycursor.execute(sqlstr)
+                    mydb.commit()
                     print("Datos agregados")
                     socioeconomico = input("Desea ingresar estudio socio-economico? [S/N]").upper() #Datos socioeconomicos 
                     if socioeconomico == "S":
@@ -143,7 +146,7 @@ if __name__ == "__main__":
                         sqlstr = ("INSERT INTO `CasaAngel`.`ReferenciaFamiliar` (`idReferenciaFamiliar`, `Nombre`, `Edad`, `Sexo`, `EstadoCivil`, `Estudios`, `CURP`, `SeguroSocial`, `INE`, `Calle`, `Colonia`, `Ciudad`, `Estado`, `idasilado`) VALUES ('"+idReferencia+"', '"+nombre+"', '"+edad+"', '"+sexo+"', '"+estadocivil+"', '"+estudios+"', '"+curp+"', '"+nss+"', '"+ine+"', '"+calle+"', '"+colonia+"', '"+ciudad+"', '"+estado+"','"+idasilado+"');")
                         mycursor.execute(sqlstr)
                         mydb.commit()    
-                        print("Referncia Agregada")
+                        print("Referencia Agregada")
                     else:
                         mycursor.execute("SELECT * FROM CasaAngel.ReferenciaFamiliar;")
                         resultado = mycursor.fetchall()
@@ -151,7 +154,8 @@ if __name__ == "__main__":
                         idReferencia = str(idReferencia)
                         sqlstr = ("INSERT INTO `CasaAngel`.`ReferenciaFamiliar` (`idReferenciaFamiliar`, `idasilado`) VALUES ('"+idReferencia+"', '"+idasilado+"');")
                         mycursor.execute(sqlstr)
-                        mydb.commit()    
+                        mydb.commit()
+
                 if opc == 3:
                     mycursor.execute("SELECT * FROM CasaAngel.asilado;")
                     resultado = mycursor.fetchall()
@@ -351,12 +355,17 @@ if __name__ == "__main__":
                                 sqlstr=("DELETE FROM `CasaAngel`.`ReferenciaFamiliar` WHERE (`idasilado` = '"+str(deleteopc)+"');")
                                 mycursor.execute(sqlstr)
                                 mydb.commit()
+                                sqlstr=("DELETE FROM `CasaAngel`.`notas` WHERE (`idasilado` = '"+str(deleteopc)+"');")
+                                mycursor.execute(sqlstr)
+                                mydb.commit()
+                                sqlstr=("DELETE FROM `CasaAngel`.`HistorialClinico` WHERE (`idasilado` = '"+str(deleteopc)+"');")
+                                mycursor.execute(sqlstr)
+                                mydb.commit()
                                 print("Registros eliminados")
                                 #mycursor.execute("SELECT * FROM CasaAngel.asilado;")
 
                                 for x in range(deleteopc,idupd):
                                     sqlstr=("UPDATE `CasaAngel`.`asilado` SET `idasilado` = '"+str(x)+"' WHERE (`idasilado` = '"+str(x+1)+"');")
-                                    print(sqlstr)
                                     mycursor.execute(sqlstr)
                                     mydb.commit()
                                     sqlstr=("UPDATE `CasaAngel`.`ReferenciaFamiliar` SET `idReferenciaFamiliar` = '"+str(x)+"', `idasilado` = '"+str(x)+"' WHERE (`idReferenciaFamiliar` = '"+str(x+1)+"');")
@@ -365,8 +374,129 @@ if __name__ == "__main__":
                                     sqlstr=("UPDATE `CasaAngel`.`estudioSocio` SET `idestudioSocio` = '"+str(x)+"', `idasilado` = '"+str(x)+"' WHERE (`idestudioSocio` = '"+str(x+1)+"');")
                                     mycursor.execute(sqlstr)
                                     mydb.commit()
+                                    sqlstr=("UPDATE `CasaAngel`.`notas` SET `idasilado` = '"+str(x)+"' WHERE (`idasilado` = '"+str(x+1)+"');")
+                                    mycursor.execute(sqlstr)
+                                    mydb.commit()
+                                    sqlstr=("UPDATE `CasaAngel`.`HistorialClinico` SET `idHistorialClinico` = '"+str(x)+"', `idasilado` = '"+str(x)+"' WHERE (`idasilado` = '"+str(x+1)+"');")
+                                    mycursor.execute(sqlstr)
+                                    mydb.commit()
                 if opc == 5:
                     ex=1
+            if usuario[3] == 1:
+                print("Area Medica")
+                opc=int(input("1.-Consulta Historial \n2.-Modificar Historial de asilado\n3.-Notas Medicas\n5.-Salir\n"))
+                if opc==1:
+                    mycursor.execute("SELECT * FROM CasaAngel.asilado;")
+                    resultado = mycursor.fetchall()
+                    for x in resultado:
+                        print (x)
+                    busqueda=(input("Desea realizar una busqueda por nombre? [S/N]")).upper()
+                    if busqueda=="S":
+                        nombreBusqueda=input("Ingrese nombre a buscar: ")
+                        for x in range(len(resultado)):
+                            if nombreBusqueda in resultado[x]:
+                                print(resultado[x])
+                    idp=int(input("Ingrese ID del asilado: "))
+                    mycursor.execute("SELECT * FROM CasaAngel.HistorialClinico WHERE (`idasilado` = '"+str(idp)+"');")
+                    historial = mycursor.fetchall()
+                    if historial:
+                        print("Historial del asildado:")
+                        print(historial[0])
+                    else:
+                        print("No existe registro")
+                
+                if opc==2:
+                    mycursor.execute("SELECT * FROM CasaAngel.asilado;")
+                    resultado = mycursor.fetchall()
+                    for x in resultado:
+                        print (x)
+                    busqueda=(input("Desea realizar una busqueda por nombre? [S/N]")).upper()
+                    if busqueda=="S":
+                        nombreBusqueda=input("Ingrese nombre a buscar: ")
+                        for x in range(len(resultado)):
+                            if nombreBusqueda in resultado[x]:
+                                print(resultado[x])
+                    idp=int(input("Ingrese ID del asilado: "))
+                    mycursor.execute("SELECT * FROM CasaAngel.HistorialClinico WHERE (`idasilado` = '"+str(idp)+"');")
+                    historial = mycursor.fetchall()
+                    if historial:
+                        print("Historial del asildado:")
+                        print(historial[0])
+                        habitacion=input("Ingrese numero de habitacion: ")
+                        fecha=input("Ingrese fecha DD-MM-AAAA: ")
+                        ocupacion=input("Ingrese ocupacion:  ")
+                        religion=input("Ingrese Religion: ")
+                        motivo=input("Ingrese motivo del consulta: ")
+                        enfermedad=input("Ingrese enfermedad: ")
+                        antPatologicos=input("Ingrese Antecedentes patologicos: ")
+                        antNoPatologicos=input("Ingrese Antecedentes NO patologicos: ")
+                        historialClinico=input("Ingrese Historial Clinico: ")
+                        herencia=input("Heredo de familiares?: ")
+                        habitos=input("Ingrese Habitos toxicos:" )
+                        vacuna=input("Ingrese Vacuna: ")
+                        sistemaNeuro=input("Ingrese estado del sistema neurologico: ")
+                        sistemaCardio=input("Ingrese estado del sistema cardiologico: ")
+                        sistemaRespi=input("Ingrese estado del sistema Respiratorio: ")
+                        sistemaGastro=input("Ingrese estado del sistema Gastrointestinal: ")
+                        sistemaEndo=input("Ingrese estado del sistema Endocrino: ")
+                        musculo=input("Ingrese estado del musculo esqueletico: ")
+                        fragmentos=input("Ingrese estado fragmentos: ")
+                        examen=input("Ingrese resultado examen fisico: ")
+                        diag=input("Ingrese diagnostico preventivo: ")
+                        trat=input("Ingrese tratamiento: ")
+                        sqlstr=("UPDATE `CasaAngel`.`HistorialClinico` SET `Habitacion` = '"+habitacion+"', `Fecha` = '"+fecha+"', `Ocupacion` = '"+ocupacion+"', `Religion` = '"+religion+"', `Motivo` = '"+motivo+"', `Enfermedad` = '"+enfermedad+"', `AntecedentesPatologicos` = '"+antPatologicos+"', `AntecedentesNoPatologicos` = '"+antNoPatologicos+"', `HistorialClinicocol` = '"+historialClinico+"', `HerodoFamiliares` = '"+herencia+"', `HabitosToxicos` = '"+habitos+"', `VacunaRecibida` = '"+vacuna+"', `SistemaNeurologico` = '"+sistemaNeuro+"', `SistemaCardiovascular` = '"+sistemaCardio+"', `SistemaRespiratorio` = '"+sistemaRespi+"', `SistemaGastroinstestinal` = '"+sistemaGastro+"', `SistemaEndocrino` = '"+sistemaEndo+"', `MusculoEsqueletico` = '"+musculo+"', `Fragmentos` = '"+fragmentos+"', `ExamenFisico` = '"+examen+"', `DiagnosticoPreventivo` = '"+diag+"', `Tratatamiento` = '"+trat+"' WHERE (`idHistorialClinico` = '"+str(idp)+"');")
+                        mycursor.execute(sqlstr)
+                        mydb.commit()
+                        for x in range(len(resultado)):
+                            if idp == resultado[x][0]:
+
+                                print("Datos de {0} actualizados!!".format(resultado[x][4]))
+                if opc==3:
+                    notasopc=int(input("1.-Ver Notas\n2.-Agregar Notas\n"))
+                    if notasopc==1:
+                        mycursor.execute("SELECT * FROM CasaAngel.asilado;")
+                        resultado = mycursor.fetchall()
+                        for x in resultado:
+                          print (x)
+                        busqueda=(input("Desea realizar una busqueda por nombre? [S/N]")).upper()
+                        if busqueda=="S":
+                            nombreBusqueda=input("Ingrese nombre a buscar: ")
+                            for x in range(len(resultado)):
+                                if nombreBusqueda in resultado[x]:
+                                    print(resultado[x])
+                        idp=int(input("Ingrese ID del asilado: "))
+                        mycursor.execute("SELECT * FROM CasaAngel.notas WHERE (`idasilado` = '"+str(idp)+"');")
+                        resultado = mycursor.fetchall()
+                        if resultado:
+                            for x in resultado:
+                                print(resultado)
+                        else:
+                            print("No existen notas medicas.")
+                
+                    if notasopc==2:
+                        mycursor.execute("SELECT * FROM CasaAngel.asilado;")
+                        resultado = mycursor.fetchall()
+                        for x in resultado:
+                          print (x)
+                        busqueda=(input("Desea realizar una busqueda por nombre? [S/N]")).upper()
+                        if busqueda=="S":
+                            nombreBusqueda=input("Ingrese nombre a buscar: ")
+                            for x in range(len(resultado)):
+                                if nombreBusqueda in resultado[x]:
+                                    print(resultado[x])
+                        idp=int(input("Ingrese ID del asilado: "))
+                        fecha=input("Ingrese Fecha: ")
+                        subj=input("Ingrese caso: ")
+                        obj=input("Ingrese objetivo: ")
+                        analisis=input("Ingrese analisis: ")
+                        plan=input("Ingrese plan: ")
+                        mycursor.execute("SELECT * FROM CasaAngel.notas;")
+                        resultado = mycursor.fetchall()
+                        idnotas=len(resultado)+1
+                        sqlstr=("INSERT INTO `CasaAngel`.`notas` (`idnotas`, `fecha`, `subjetivocaso`, `objetivo`, `analisis`, `plan`, `idasilado`) VALUES ('"+str(idnotas)+"', '"+fecha+"', '"+subj+"', '"+obj+"', '"+analisis+"', '"+plan+"', '"+str(idp)+"');")
+                        mycursor.execute(sqlstr)
+                        mydb.commit()
+                        print("Nota agregada")                        
     else:
         print("Datos Invalidos")
 # Victor -- Codigo
@@ -377,4 +507,9 @@ if __name__ == "__main__":
 # Carlos -- Power Point 
 #UPDATE `CasaAngel`.`asilado` SET `EstadoCivil` = 'ass' WHERE (`idasilado` = '1');
 #UPDATE `CasaAngel`.`asilado` SET `Fecha` = 'y', `Nombre` = 'y', `Edad` = 'y', `Sexo` = 'y', `EstadoCivil` = 'y', `Estudios` = 'y', `CURP` = 'y', `SeguroSocial` = 'y', `INE` = 'y', `CalleNumero` = 'y', `Colonia` = 'y', `Ciudad` = 'y' WHERE (`idasilado` = '1');
+<<<<<<< Updated upstream
+=======
+#UPDATE `CasaAngel`.`HistorialClinico` SET `Habitacion` = 'x', `Fecha` = 'x', `Ocupacion` = 'x', `Religion` = 'x', `Motivo` = 'x', `Enfermedad` = 'x', `AntecedentesPatologicos` = 'x', `AntecedentesNoPatologicos` = 'x', `HistorialClinicocol` = 'x', `HerodoFamiliares` = 'x', `HabitosToxicos` = 'x', `VacunaRecibida` = 'x', `SistemaNeurologico` = 'x', `SistemaCardiovascular` = 'x', `SistemaRespiratorio` = 'x', `SistemaGastroinstestinal` = 'x', `SistemaEndocrino` = 'x', `MusculoEsqueletico` = 'x', `Fragmentos` = 'x', `ExamenFisico` = 'x', `DiagnosticoPreventivo` = 'x', `Tratatamiento` = 'x' WHERE (`idHistorialClinico` = '1');
+#INSERT INTO `CasaAngel`.`notas` (`idnotas`, `fecha`, `subjetivocaso`, `objetivo`, `analisis`, `plan`, `idasilado`) VALUES ('1', 'x', 'x', 'x', 'x', 'x', '1');
+>>>>>>> Stashed changes
 
