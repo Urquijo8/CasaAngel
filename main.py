@@ -376,5 +376,4 @@ if __name__ == "__main__":
 # Saul -- Investigacion Redes / Diagrama packet tracer.
 # Carlos -- Power Point 
 #UPDATE `CasaAngel`.`asilado` SET `EstadoCivil` = 'ass' WHERE (`idasilado` = '1');
-#UPDATE `CasaAngel`.`asilado` SET `Fecha` = 'y', `Nombre` = 'y', `Edad` = 'y', `Sexo` = 'y', `EstadoCivil` = 'y', `Estudios` = 'y', `CURP` = 'y', `SeguroSocial` = 'y', `INE` = 'y', `CalleNumero` = 'y', `Colonia` = 'y', `Ciudad` = 'y' WHERE (`idasilado` = '1');
 
