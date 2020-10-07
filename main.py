@@ -39,6 +39,12 @@ if __name__ == "__main__":
                         for x in range(len(resultado)):
                             if nombreBusqueda in resultado[x]:
                                 print(resultado[x])
+                    referencias=input("Desea consultar referencia? [S/N]").upper()
+                    if referencias=="S":
+                        idp=int(input("Ingrese ID de la consulta: "))
+                        mycursor.execute("SELECT * FROM CasaAngel.ReferenciaFamiliar WHERE (`idasilado` = '"+str(idp)+"');")
+                        referencia=mycursor.fetchall()
+                        print(referencia[0])
 
                 if opc==2:
                     mycursor.execute("SELECT * FROM CasaAngel.asilado;")
@@ -150,91 +156,213 @@ if __name__ == "__main__":
                         if choice == resultado[x][0]:
                             print("Elemento a modificar: ")
                             print(resultado[x])
-                            split=(input("Desea modificar todos los campos?[S/N]")).upper()
-                            if split =="S":
-                                fecha=input("Ingrese fecha de nacimiento: [DD-MM-AAAA]  ")
-                                #expediente = random.randrange(1000,9000)
-                                #expediente = str(expediente)
-                                #huellas = random.randrange(100000,900000)
-                                #huellas = str(huellas)
-                                nombre = input("Ingrese nombre completo: ")
-                                edad = input("Ingrese Edad: ")
-                                sexo = input("Ingrese sexo [M/F]: ")
-                                opcivil = int(input("1.-Soltero\n2.-Casado\n3.-Viudo\n"))
-                                if opcivil == 1:
-                                    estadocivil="Soltero"
-                                if opcivil == 2:
-                                    estadocivil="Casado"
-                                if opcivil == 3:
-                                    estadocivil="Viudo"
-                                estudios=input("Ingrese nivel de estudios: ")
-                                curp=input("Ingrese CURP: ")
-                                nss=input("Ingrese Numero de seguro social: ")
-                                ine=input("Ingrese numero de INE: ")
-                                calle=input("Ingrese calle y numero de domicilio: ")
-                                colonia=input("Ingrese Colonia: ")
-                                ciudad=input("Ingrese Ciudad: ")
-                                estado=input("Ingrese Estado: ")
-                                sqlstr = ("UPDATE `CasaAngel`.`asilado` SET `Fecha` = '"+fecha+"', `Nombre` = '"+nombre+"', `Edad` = '"+edad+"', `Sexo` = '"+sexo+"', `EstadoCivil` = '"+estadocivil+"', `Estudios` = '"+estudios+"', `CURP` = '"+curp+"', `SeguroSocial` = '"+nss+"', `INE` = '"+ine+"', `CalleNumero` = '"+calle+"', `Colonia` = '"+colonia+"', `Ciudad` = '"+ciudad+"' WHERE (`idasilado` = '"+str(choice)+"');")
-                                mycursor.execute(sqlstr)
-                                mydb.commit()    
-                                print("Datos Actualizados!!")
-
-                            else:
-                                campo=int(input("Ingrese campo a modificar: \n1.-Fecha\n2.-Nombre\n3.-Edad\n4.-Sexo\n5.-Estado Civil\n6.-Estudios\n7.-CURP\n8.-NSS\n9.-INE\n10.-Calle\n11.-Colonia\n12.-Ciudad\n13.-Estado\n"))
-                                if campo == 1:
-                                    updsql="Fecha"
-                                    modificacion=input("Ingrese Fecha: ")
-                                if campo == 2:
-                                    updsql="Nombre"
-                                    modificacion=input("Ingrese Nombre: ")
-                                if campo == 3:
-                                    updsql="Edad"
-                                    modificacion=input("Ingrese Edad: ")                
-                                if campo == 4:
-                                    updsql="Sexo"
-                                    modificacion=input("Ingrese Sexo: ")                
-                                if campo == 5:
+                            opcmod=int(input("1.-Modificar Asilado\n2.-Modificar Referencias del asilado\n3.-Modificar Estudio Socio-Economico\n"))
+                            if opcmod==1:
+                                split=(input("Desea modificar todos los campos?[S/N]")).upper()
+                                if split =="S":
+                                    fecha=input("Ingrese fecha de nacimiento: [DD-MM-AAAA]  ")
+                                    #expediente = random.randrange(1000,9000)
+                                    #expediente = str(expediente)
+                                    #huellas = random.randrange(100000,900000)
+                                    #huellas = str(huellas)
+                                    nombre = input("Ingrese nombre completo: ")
+                                    edad = input("Ingrese Edad: ")
+                                    sexo = input("Ingrese sexo [M/F]: ")
                                     opcivil = int(input("1.-Soltero\n2.-Casado\n3.-Viudo\n"))
                                     if opcivil == 1:
-                                        modificacion="Soltero"
+                                        estadocivil="Soltero"
                                     if opcivil == 2:
-                                        modificacion="Casado"
+                                        estadocivil="Casado"
                                     if opcivil == 3:
-                                        modificacion="Viudo"
+                                        estadocivil="Viudo"
+                                    estudios=input("Ingrese nivel de estudios: ")
+                                    curp=input("Ingrese CURP: ")
+                                    nss=input("Ingrese Numero de seguro social: ")
+                                    ine=input("Ingrese numero de INE: ")
+                                    calle=input("Ingrese calle y numero de domicilio: ")
+                                    colonia=input("Ingrese Colonia: ")
+                                    ciudad=input("Ingrese Ciudad: ")
+                                    estado=input("Ingrese Estado: ")
+                                    sqlstr = ("UPDATE `CasaAngel`.`asilado` SET `Fecha` = '"+fecha+"', `Nombre` = '"+nombre+"', `Edad` = '"+edad+"', `Sexo` = '"+sexo+"', `EstadoCivil` = '"+estadocivil+"', `Estudios` = '"+estudios+"', `CURP` = '"+curp+"', `SeguroSocial` = '"+nss+"', `INE` = '"+ine+"', `CalleNumero` = '"+calle+"', `Colonia` = '"+colonia+"', `Ciudad` = '"+ciudad+"' WHERE (`idasilado` = '"+str(choice)+"');")
+                                    mycursor.execute(sqlstr)
+                                    mydb.commit()    
+                                    print("Datos Actualizados!!")
+
+                                else:
+                                    campo=int(input("Ingrese campo a modificar: \n1.-Fecha\n2.-Nombre\n3.-Edad\n4.-Sexo\n5.-Estado Civil\n6.-Estudios\n7.-CURP\n8.-NSS\n9.-INE\n10.-Calle\n11.-Colonia\n12.-Ciudad\n13.-Estado\n"))
+                                    if campo == 1:
                                         updsql="Fecha"
-                                if campo == 6:
-                                    updsql="Estudios"
-                                    modificacion=input("Ingrese Estudios: ")
-                                if campo == 7:
-                                    updsql="CURP"
-                                    modificacion=input("Ingrese CURP: ")
-                                if campo == 8:
-                                    updsql="SeguroSocial"
-                                    modificacion=input("Ingrese Seguro Social: ")
-                                if campo == 9:
-                                    updsql="INE"
-                                    modificacion=input("Ingrese INE: ")
-                                if campo == 10:
-                                    updsql="CalleNumero"
-                                    modificacion=input("Ingrese Calle: ")
-                                if campo == 11:
-                                    updsql="Colonia"
-                                    modificacion=input("Ingrese Colonia: ")
-                                if campo == 12:
-                                    updsql="Ciudad"
-                                    modificacion=input("Ingrese Ciudad: ")
-                                if campo == 13:
-                                    updsql="Estado"
-                                    modificacion=input("Ingrese Estado: ")
-                                sqlstr=("UPDATE `CasaAngel`.`asilado` SET `"+updsql+"` = '"+modificacion+"' WHERE (`idasilado` = '"+str(choice)+"');")
+                                        modificacion=input("Ingrese Fecha: ")
+                                    if campo == 2:
+                                        updsql="Nombre"
+                                        modificacion=input("Ingrese Nombre: ")
+                                    if campo == 3:
+                                        updsql="Edad"
+                                        modificacion=input("Ingrese Edad: ")                
+                                    if campo == 4:
+                                        updsql="Sexo"
+                                        modificacion=input("Ingrese Sexo: ")                
+                                    if campo == 5:
+                                        updsql="EstadoCivil"
+
+                                        opcivil = int(input("1.-Soltero\n2.-Casado\n3.-Viudo\n"))
+                                        if opcivil == 1:
+                                            modificacion="Soltero"
+                                        if opcivil == 2:
+                                            modificacion="Casado"
+                                        if opcivil == 3:
+                                            modificacion="Viudo"
+                                    if campo == 6:
+                                        updsql="Estudios"
+                                        modificacion=input("Ingrese Estudios: ")
+                                    if campo == 7:
+                                        updsql="CURP"
+                                        modificacion=input("Ingrese CURP: ")
+                                    if campo == 8:
+                                        updsql="SeguroSocial"
+                                        modificacion=input("Ingrese Seguro Social: ")
+                                    if campo == 9:
+                                        updsql="INE"
+                                        modificacion=input("Ingrese INE: ")
+                                    if campo == 10:
+                                        updsql="CalleNumero"
+                                        modificacion=input("Ingrese Calle: ")
+                                    if campo == 11:
+                                        updsql="Colonia"
+                                        modificacion=input("Ingrese Colonia: ")
+                                    if campo == 12:
+                                        updsql="Ciudad"
+                                        modificacion=input("Ingrese Ciudad: ")
+                                    if campo == 13:
+                                        updsql="Estado"
+                                        modificacion=input("Ingrese Estado: ")
+                                    sqlstr=("UPDATE `CasaAngel`.`asilado` SET `"+updsql+"` = '"+modificacion+"' WHERE (`idasilado` = '"+str(choice)+"');")
+                                    mycursor.execute(sqlstr)
+                                    mydb.commit()
+                                    print("Datos Actualizados!!")
+                            if opcmod == 2:
+
+                                split=(input("Desea modificar todos los campos?[S/N]")).upper()
+                                if split =="S":
+                                    #fecha=input("Ingrese fecha de nacimiento: [DD-MM-AAAA]  ")
+                                    #expediente = random.randrange(1000,9000)
+                                    #expediente = str(expediente)
+                                    #huellas = random.randrange(100000,900000)
+                                    #huellas = str(huellas)
+                                    nombre = input("Ingrese nombre completo: ")
+                                    edad = input("Ingrese Edad: ")
+                                    sexo = input("Ingrese sexo [M/F]: ")
+                                    opcivil = int(input("1.-Soltero\n2.-Casado\n3.-Viudo\n"))
+                                    if opcivil == 1:
+                                        estadocivil="Soltero"
+                                    if opcivil == 2:
+                                        estadocivil="Casado"
+                                    if opcivil == 3:
+                                        estadocivil="Viudo"
+                                    estudios=input("Ingrese nivel de estudios: ")
+                                    curp=input("Ingrese CURP: ")
+                                    nss=input("Ingrese Numero de seguro social: ")
+                                    ine=input("Ingrese numero de INE: ")
+                                    calle=input("Ingrese calle y numero de domicilio: ")
+                                    colonia=input("Ingrese Colonia: ")
+                                    ciudad=input("Ingrese Ciudad: ")
+                                    estado=input("Ingrese Estado: ")
+                                    sqlstr = ("UPDATE `CasaAngel`.`ReferenciaFamiliar` SET  `Nombre` = '"+nombre+"', `Edad` = '"+edad+"', `Sexo` = '"+sexo+"', `EstadoCivil` = '"+estadocivil+"', `Estudios` = '"+estudios+"', `CURP` = '"+curp+"', `SeguroSocial` = '"+nss+"', `INE` = '"+ine+"', `CalleNumero` = '"+calle+"', `Colonia` = '"+colonia+"', `Ciudad` = '"+ciudad+"' WHERE (`idasilado` = '"+str(choice)+"');")
+                                    mycursor.execute(sqlstr)
+                                    mydb.commit()    
+                                    print("Datos Actualizados!!")
+
+                                else:
+                                    campo=int(input("Ingrese campo a modificar:\n1.-Nombre\n2.-Edad\n3.-Sexo\n4.-Estado Civil\n5.-Estudios\n6.-CURP\n7.-NSS\n8.-INE\n9.-Calle\n10.-Colonia\n11.-Ciudad\n12.-Estado\n"))
+                                    if campo == 1:
+                                        updsql="Nombre"
+                                        modificacion=input("Ingrese Nombre: ")
+                                    if campo == 2:
+                                        updsql="Edad"
+                                        modificacion=input("Ingrese Edad: ")                
+                                    if campo == 3:
+                                        updsql="Sexo"
+                                        modificacion=input("Ingrese Sexo: ")                
+                                    if campo == 4:
+                                        updsql="EstadoCivil"
+                                        opcivil = int(input("1.-Soltero\n2.-Casado\n3.-Viudo\n"))
+                                        if opcivil == 1:
+                                            modificacion="Soltero"
+                                        if opcivil == 2:
+                                            modificacion="Casado"
+                                        if opcivil == 3:
+                                            modificacion="Viudo"
+                                    if campo == 5:
+                                        updsql="Estudios"
+                                        modificacion=input("Ingrese Estudios: ")
+                                    if campo == 6:
+                                        updsql="CURP"
+                                        modificacion=input("Ingrese CURP: ")
+                                    if campo == 7:
+                                        updsql="SeguroSocial"
+                                        modificacion=input("Ingrese Seguro Social: ")
+                                    if campo == 8:
+                                        updsql="INE"
+                                        modificacion=input("Ingrese INE: ")
+                                    if campo == 9:
+                                        updsql="CalleNumero"
+                                        modificacion=input("Ingrese Calle: ")
+                                    if campo == 10:
+                                        updsql="Colonia"
+                                        modificacion=input("Ingrese Colonia: ")
+                                    if campo == 11:
+                                        updsql="Ciudad"
+                                        modificacion=input("Ingrese Ciudad: ")
+                                    if campo == 12:
+                                        updsql="Estado"
+                                        modificacion=input("Ingrese Estado: ")
+                                    sqlstr=("UPDATE `CasaAngel`.`ReferenciaFamiliar` SET `"+updsql+"` = '"+modificacion+"' WHERE (`idasilado` = '"+str(choice)+"');")
+                                    mycursor.execute(sqlstr)
+                                    mydb.commit()
+                                    print("Datos Actualizados!!")
+
+                if opc == 4:
+                    mycursor.execute("SELECT * FROM CasaAngel.asilado;")
+                    resultado = mycursor.fetchall()
+                    for x in resultado:
+                        print (x)
+                    deleteopc = int(input("Ingrese ID de registro que desea borrar: "))
+                    for x in range(len(resultado)):
+                        if deleteopc == resultado[x-1][0]:
+                            print("Elemento a Eliminar: ")
+                            print(resultado[x-1])
+                            sure=input("Seguro que desea eliminar registro?: [S/N]").upper()
+                            if sure=="S":
+                                mycursor.execute("SELECT * FROM CasaAngel.asilado;")
+                                resultado = mycursor.fetchall()
+                                idupd=len(resultado)
+                                sqlstr=("DELETE FROM `CasaAngel`.`asilado` WHERE (`idasilado` = '"+str(deleteopc)+"');")
                                 mycursor.execute(sqlstr)
                                 mydb.commit()
-                                print("Datos Actualizados!!")
-        
+                                sqlstr=("DELETE FROM `CasaAngel`.`estudioSocio` WHERE (`idasilado` = '"+str(deleteopc)+"');")
+                                mycursor.execute(sqlstr)
+                                mydb.commit()
+                                sqlstr=("DELETE FROM `CasaAngel`.`ReferenciaFamiliar` WHERE (`idasilado` = '"+str(deleteopc)+"');")
+                                mycursor.execute(sqlstr)
+                                mydb.commit()
+                                print("Registros eliminados")
+                                #mycursor.execute("SELECT * FROM CasaAngel.asilado;")
+
+                                for x in range(deleteopc,idupd):
+                                    sqlstr=("UPDATE `CasaAngel`.`asilado` SET `idasilado` = '"+str(x)+"' WHERE (`idasilado` = '"+str(x+1)+"');")
+                                    print(sqlstr)
+                                    mycursor.execute(sqlstr)
+                                    mydb.commit()
+                                    sqlstr=("UPDATE `CasaAngel`.`ReferenciaFamiliar` SET `idReferenciaFamiliar` = '"+str(x)+"', `idasilado` = '"+str(x)+"' WHERE (`idReferenciaFamiliar` = '"+str(x+1)+"');")
+                                    mycursor.execute(sqlstr)
+                                    mydb.commit()
+                                    sqlstr=("UPDATE `CasaAngel`.`estudioSocio` SET `idestudioSocio` = '"+str(x)+"', `idasilado` = '"+str(x)+"' WHERE (`idestudioSocio` = '"+str(x+1)+"');")
+                                    mycursor.execute(sqlstr)
+                                    mydb.commit()
                 if opc == 5:
                     ex=1
-
+    else:
+        print("Datos Invalidos")
 # Victor -- Codigo
 # Lalo -- Cronograma
 # Jorge -- UML / Base de datos
