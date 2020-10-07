@@ -506,10 +506,4 @@ if __name__ == "__main__":
 # Saul -- Investigacion Redes / Diagrama packet tracer.
 # Carlos -- Power Point 
 #UPDATE `CasaAngel`.`asilado` SET `EstadoCivil` = 'ass' WHERE (`idasilado` = '1');
-#UPDATE `CasaAngel`.`asilado` SET `Fecha` = 'y', `Nombre` = 'y', `Edad` = 'y', `Sexo` = 'y', `EstadoCivil` = 'y', `Estudios` = 'y', `CURP` = 'y', `SeguroSocial` = 'y', `INE` = 'y', `CalleNumero` = 'y', `Colonia` = 'y', `Ciudad` = 'y' WHERE (`idasilado` = '1');
-<<<<<<< Updated upstream
-=======
-#UPDATE `CasaAngel`.`HistorialClinico` SET `Habitacion` = 'x', `Fecha` = 'x', `Ocupacion` = 'x', `Religion` = 'x', `Motivo` = 'x', `Enfermedad` = 'x', `AntecedentesPatologicos` = 'x', `AntecedentesNoPatologicos` = 'x', `HistorialClinicocol` = 'x', `HerodoFamiliares` = 'x', `HabitosToxicos` = 'x', `VacunaRecibida` = 'x', `SistemaNeurologico` = 'x', `SistemaCardiovascular` = 'x', `SistemaRespiratorio` = 'x', `SistemaGastroinstestinal` = 'x', `SistemaEndocrino` = 'x', `MusculoEsqueletico` = 'x', `Fragmentos` = 'x', `ExamenFisico` = 'x', `DiagnosticoPreventivo` = 'x', `Tratatamiento` = 'x' WHERE (`idHistorialClinico` = '1');
-#INSERT INTO `CasaAngel`.`notas` (`idnotas`, `fecha`, `subjetivocaso`, `objetivo`, `analisis`, `plan`, `idasilado`) VALUES ('1', 'x', 'x', 'x', 'x', 'x', '1');
->>>>>>> Stashed changes
 
