@@ -37,9 +37,9 @@ if __name__ == "__main__":
                         busqueda=(input("Desea realizar una busqueda por nombre? [S/N]")).upper()
                         if busqueda=="S":
                             nombreBusqueda=input("Ingrese nombre a buscar: ")
-                            for x in range(len(resultado)):
-                                if nombreBusqueda in resultado[x]:
-                                    print(resultado[x])
+                            for x in resultado:
+                                if nombreBusqueda in x[4]:
+                                    print(x)
                         referencias=input("Desea consultar referencia? [S/N]").upper()
                         if referencias=="S":
                             idp=int(input("Ingrese ID de la consulta: "))
@@ -400,9 +400,9 @@ if __name__ == "__main__":
                         busqueda=(input("Desea realizar una busqueda por nombre? [S/N]")).upper()
                         if busqueda=="S":
                             nombreBusqueda=input("Ingrese nombre a buscar: ")
-                            for x in range(len(resultado)):
-                                if nombreBusqueda in resultado[x]:
-                                    print(resultado[x])
+                            for x in resultado:
+                                if nombreBusqueda in x[4]:
+                                    print(x)
                         idp=int(input("Ingrese ID del asilado: "))
                         mycursor.execute("SELECT * FROM CasaAngel.HistorialClinico WHERE (`idasilado` = '"+str(idp)+"');")
                         historial = mycursor.fetchall()
@@ -420,9 +420,9 @@ if __name__ == "__main__":
                         busqueda=(input("Desea realizar una busqueda por nombre? [S/N]")).upper()
                         if busqueda=="S":
                             nombreBusqueda=input("Ingrese nombre a buscar: ")
-                            for x in range(len(resultado)):
-                                if nombreBusqueda in resultado[x]:
-                                    print(resultado[x])
+                            for x in resultado:
+                                if nombreBusqueda in x[4]:
+                                    print(x)
                         idp=int(input("Ingrese ID del asilado: "))
                         mycursor.execute("SELECT * FROM CasaAngel.HistorialClinico WHERE (`idasilado` = '"+str(idp)+"');")
                         historial = mycursor.fetchall()
@@ -468,9 +468,9 @@ if __name__ == "__main__":
                             busqueda=(input("Desea realizar una busqueda por nombre? [S/N]")).upper()
                             if busqueda=="S":
                                 nombreBusqueda=input("Ingrese nombre a buscar: ")
-                                for x in range(len(resultado)):
-                                    if nombreBusqueda in resultado[x]:
-                                        print(resultado[x])
+                                for x in resultado:
+                                    if nombreBusqueda in x[4]:
+                                        print(x)
                             idp=int(input("Ingrese ID del asilado: "))
                             mycursor.execute("SELECT * FROM CasaAngel.notas WHERE (`idasilado` = '"+str(idp)+"');")
                             resultado = mycursor.fetchall()
@@ -488,9 +488,9 @@ if __name__ == "__main__":
                             busqueda=(input("Desea realizar una busqueda por nombre? [S/N]")).upper()
                             if busqueda=="S":
                                 nombreBusqueda=input("Ingrese nombre a buscar: ")
-                                for x in range(len(resultado)):
-                                    if nombreBusqueda in resultado[x]:
-                                        print(resultado[x])
+                                for x in resultado:
+                                    if nombreBusqueda in x[4]:
+                                        print(x)
                             idp=int(input("Ingrese ID del asilado: "))
                             fecha=input("Ingrese Fecha: ")
                             subj=input("Ingrese caso: ")
@@ -514,9 +514,9 @@ if __name__ == "__main__":
                             busqueda=(input("Desea realizar una busqueda por nombre? [S/N]")).upper()
                             if busqueda=="S":
                                 nombreBusqueda=input("Ingrese nombre a buscar: ")
-                                for x in range(len(resultado)):
-                                    if nombreBusqueda in resultado[x]:
-                                        print(resultado[x])
+                                for x in resultado:
+                                    if nombreBusqueda in x[4]:
+                                        print(x)
                             idindicaciones=int(input("Ingrese ID de asilado: "))
                             mycursor.execute("SELECT * FROM CasaAngel.indicaciones WHERE (`idasilado` = '"+str(idindicaciones)+"');")
                             resultado = mycursor.fetchall()
@@ -530,9 +530,9 @@ if __name__ == "__main__":
                             busqueda=(input("Desea realizar una busqueda por nombre? [S/N]")).upper()
                             if busqueda=="S":
                                 nombreBusqueda=input("Ingrese nombre a buscar: ")
-                                for x in range(len(resultado)):
-                                    if nombreBusqueda in resultado[x]:
-                                        print(resultado[x])
+                                for x in resultado:
+                                    if nombreBusqueda in x[4]:
+                                        print(x)
                             mycursor.execute("SELECT * FROM CasaAngel.indicaciones;")
                             resultado = mycursor.fetchall()
                             idind=len(resultado)+1
