@@ -73,7 +73,7 @@ if __name__ == "__main__":
                             edp=int(input("Ingrese ID de consulta: "))
                             mycursor.execute("SELECT * FROM CasaAngel.estudioSocio WHERE (`idasilado` = '"+str(edp)+"');")
                             estudios=mycursor.fetchall()
-                            head=["id","Nombre","Edad","Sexo","Estado Civil","Estudios","CURP","Seguro Social","INE","Calle","Colonia","Ciudad","Estado","idasilado"]
+                            head=["id","Lee y Escribe","Estudios","Profesion","Hobbies","Con Quien Vive","Hijos","Relacion Familiar","Tutor","Participa en Asilos","Actividades Hogar ","Apoyo Economico","Origen","idasilado","Dependiente","Dueno de Hogar","idasilado"]
                             print(tabulate(estudios,headers=head))
 
                     if opc==2:
