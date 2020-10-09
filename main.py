@@ -6,7 +6,7 @@ if __name__ == "__main__":
     mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password=""
+    password="Urquijo8@"
     )
     mycursor=mydb.cursor()
     mycursor.execute("SELECT * FROM CasaAngel.users;")
@@ -389,7 +389,7 @@ if __name__ == "__main__":
                                         mydb.commit()
                     if opc == 5:
                         ex=1
-                if usuario[3] == 1:
+                if usuario[3] == 1 or usuario[3] == 2 or usuario[3] == 3 or usuario[3] == 4 or usuario[3] == 5:
                     print("Area Medica")
                     opc=int(input("1.-Consulta Historial \n2.-Modificar Historial de asilado\n3.-Notas Medicas\n4.-Indicaciones Medicas\n5.-Salir\n"))
                     if opc==1:
@@ -472,11 +472,11 @@ if __name__ == "__main__":
                                     if nombreBusqueda in x[4]:
                                         print(x)
                             idp=int(input("Ingrese ID del asilado: "))
-                            mycursor.execute("SELECT * FROM CasaAngel.notas WHERE (`idasilado` = '"+str(idp)+"');")
+                            mycursor.execute("SELECT * FROM CasaAngel.notas WHERE (`idasilado` = '"+str(idp)+"' AND `iduser` = '"+str(usuario[3])+"');")
                             resultado = mycursor.fetchall()
                             if resultado:
                                 for x in resultado:
-                                    print(resultado)
+                                    print(x)
                             else:
                                 print("No existen notas medicas.")
                     
@@ -500,7 +500,7 @@ if __name__ == "__main__":
                             mycursor.execute("SELECT * FROM CasaAngel.notas;")
                             resultado = mycursor.fetchall()
                             idnotas=len(resultado)+1
-                            sqlstr=("INSERT INTO `CasaAngel`.`notas` (`idnotas`, `fecha`, `subjetivocaso`, `objetivo`, `analisis`, `plan`, `idasilado`) VALUES ('"+str(idnotas)+"', '"+fecha+"', '"+subj+"', '"+obj+"', '"+analisis+"', '"+plan+"', '"+str(idp)+"');")
+                            sqlstr=("INSERT INTO `CasaAngel`.`notas` (`idnotas`, `fecha`, `subjetivocaso`, `objetivo`, `analisis`, `plan`, `idasilado`,`iduser`) VALUES ('"+str(idnotas)+"', '"+fecha+"', '"+subj+"', '"+obj+"', '"+analisis+"', '"+plan+"', '"+str(idp)+"','"+str(usuario[3])+"');") 
                             mycursor.execute(sqlstr)
                             mydb.commit()
                             print("Nota agregada")   
@@ -518,10 +518,10 @@ if __name__ == "__main__":
                                     if nombreBusqueda in x[4]:
                                         print(x)
                             idindicaciones=int(input("Ingrese ID de asilado: "))
-                            mycursor.execute("SELECT * FROM CasaAngel.indicaciones WHERE (`idasilado` = '"+str(idindicaciones)+"');")
+                            mycursor.execute("SELECT * FROM CasaAngel.indicaciones WHERE (`idasilado` = '"+str(idindicaciones)+"' AND `iduser` = '"+str(usuario[3])+"');")
                             resultado = mycursor.fetchall()
                             for x in resultado:
-                                print(resultado)
+                                print(x)
                         if indicacionesopc==2:
                             mycursor.execute("SELECT * FROM CasaAngel.asilado;")
                             resultado = mycursor.fetchall()
@@ -541,7 +541,7 @@ if __name__ == "__main__":
                             medidas=input("Ingrese medidas: ")
                             medicamentos=input("Ingrese medicamentos: ")
                             recomendacion=input("Ingrese recomendaciones: ")
-                            sqlstr=("INSERT INTO `CasaAngel`.`indicaciones` (`idindicaciones`, `fecha`, `Medidas`, `Medicamentos`, `Recomendaciones`, `idasilado`) VALUES ('"+str(idind)+"', '"+fecha+"', '"+medidas+"', '"+medicamentos+"', '"+recomendacion+"', '"+str(idindicaciones)+"');")
+                            sqlstr=("INSERT INTO `CasaAngel`.`indicaciones` (`idindicaciones`, `fecha`, `Medidas`, `Medicamentos`, `Recomendaciones`, `idasilado`,`iduser`) VALUES ('"+str(idind)+"', '"+fecha+"', '"+medidas+"', '"+medicamentos+"', '"+recomendacion+"', '"+str(idindicaciones)+"','"+str(usuario[3])+"');")
                             mycursor.execute(sqlstr)
                             mydb.commit()
                             print("Indicacion agregada.")
@@ -556,11 +556,5 @@ if __name__ == "__main__":
         print("Error al ingresar valor")
     finally :
         print("Gracias por usar la app")
-# Victor -- Codigo
-# Lalo -- Cronograma
-# Jorge -- UML / Base de datos
-# Mota -- Documentacion 
-# Saul -- Investigacion Redes / Diagrama packet tracer.
-# Carlos -- Power Point 
-#UPDATE `CasaAngel`.`asilado` SET `EstadoCivil` = 'ass' WHERE (`idasilado` = '1');
+
 
