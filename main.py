@@ -393,7 +393,7 @@ if __name__ == "__main__":
                                     mycursor.execute("SELECT * FROM CasaAngel.asilado;")
                                     resultado = mycursor.fetchall()
                                     idupd=len(resultado)
-                                    sqlstr=("DELETE FROM `CasaAngel`.`asilado` WHERE (`idasilado` = '"+str(deleteopc)+"');")
+                                    sqlstr=("DELETE FROM `CasaAngel`.`asilado` WHERE (`idasilado` = '"+str(deleteopc)+"');"
                                     mycursor.execute(sqlstr)
                                     mydb.commit()
                                     sqlstr=("DELETE FROM `CasaAngel`.`estudioSocio` WHERE (`idasilado` = '"+str(deleteopc)+"');")
